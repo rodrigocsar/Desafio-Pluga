@@ -8,16 +8,14 @@ app.use(bodyParser.json());
 app.post("/", (req, res) => {
   console.log("📩 Dados recebidos:", req.body);
 
-  // Dados simulando a estrutura esperada pela Pluga
+  const body = Array.isArray(req.body) ? req.body[0] : req.body;
+
   const dados = {
-    id: req.body.id || Date.now(), // gera ID único se não vier
-    nome: req.body.nome || "Exemplo Nome",
-    email: req.body.email || "exemplo@email.com",
-    valor: req.body.valor || 100,
-    data_teste: req.body.data_teste || new Date().toISOString(),
+    nome: body.nome || "Exemplo Nome",
+    email: body.email || "exemplo@email.com",
+    mensagem: body.mensagem || "Mensagem teste"
   };
 
-  // Envia esses dados de volta para o Pluga
   res.status(200).json(dados);
 });
 
