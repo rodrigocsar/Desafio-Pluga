@@ -1,27 +1,20 @@
-const express = require("express");
-const bodyParser = require("body-parser");
+import express from "express";
+import cors from "cors";
 
 const app = express();
-app.use(bodyParser.json());
+app.use(cors());
+app.use(express.json());
 
-// Rota principal do webhook (POST e GET)
-app.all("/", (req, res) => {
-  console.log("📩 Dados recebidos:", req.body);
-
-  const dados = {
-    id: Date.now(),
-    nome: req.body.nome || "Exemplo Nome",
-    email: req.body.email || "exemplo@email.com",
-    mensagem: req.body.mensagem || "Mensagem teste",
-  };
-
-  res.status(200).json(dados);
-});
-
-// Rota padrão para qualquer outro caminho
-app.all("*", (req, res) => {
-  res.status(200).json({ status: "Servidor online e recebendo dados!" });
+// Rota principal
+app.get("/", (req, res) => {
+  res.json({
+    id: 1,
+    nome: "Cesar",
+    email: "cesar@email.com",
+    valor: 250.75,
+    data_teste: "2025-11-12"
+  });
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`🚀 Servidor rodando na porta ${PORT}`));
+app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
