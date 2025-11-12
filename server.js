@@ -8,11 +8,11 @@ app.use(bodyParser.json());
 app.post("/", (req, res) => {
   console.log("📩 Dados recebidos:", req.body);
 
-  // Garante que retorna um objeto com as chaves esperadas pela Pluga
+  // Simula o formato que o Pluga espera
   const dados = {
-    nome: req.body.nome,
-    email: req.body.email,
-    data_teste: req.body.data_teste
+    nome: req.body.nome || "Exemplo Nome",
+    email: req.body.email || "exemplo@email.com",
+    mensagem: req.body.mensagem || "Mensagem teste"
   };
 
   res.status(200).json(dados);
